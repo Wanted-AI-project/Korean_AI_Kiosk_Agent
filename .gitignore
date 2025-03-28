@@ -1,2 +1,6 @@
 *.db
 .env
+menu_images
+img_crawling.ipynb
+chroma_db
+
