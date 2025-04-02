@@ -15,6 +15,7 @@ from langchain.tools import Tool
 from langchain.agents import AgentExecutor, create_sql_agent
 from langchain_experimental.sql import SQLDatabaseChain
 from langchain.sql_database import SQLDatabase
+from langchain_community.utilities import SQLDatabase
 import sqlite3
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
@@ -178,7 +179,7 @@ def save_session_to_vector_db(session_id: str):
     if session_id in store:
         chat_history = store[session_id].messages  # 현재 세션의 대화 내용 가져오기
         for msg in chat_history:
-            vector_store.add_texts([msg.content], metadatas=[{"session_id": session_id, "role": msg.type}])
+            vector_store.add_texts([msg.content], metadatas=[{"session_id": session_id, "role": msg.type,'timestamp': datetime.datetime.now().isoformat()}])
         print(f"✅ Session {session_id} data saved to vector DB.")
 
 #### 핵심 기능 3 해당 대화세션 삭제 및 초기화  ####
